@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>服務禮儀初階測驗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<style>
+img{max-width:100%}[hidden]{display:none!important}
+:root{
+  --bg:#F3F5F8; --paper:#FFFFFF; --ink:#1B2233; --muted:#5A6377; --line:#DCE1EA;
+  --acc:#9A6F24; --acc-soft:#F4EAD6;
+  --navy:#2F4A7A; --navy-soft:#E6EBF3;
+  --ok:#2E7A55; --ok-soft:#E0F1E7; --bad:#B0443A; --bad-soft:#F8E3E0;
+  --fig:#2F4A7A; --fig2:#A57B2F; --skin:#EACFB5; --leg:#3A4254;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151D; --paper:#1A2030; --ink:#E7EAF1; --muted:#9AA3B6; --line:#2C3547;
+    --acc:#D6B06A; --acc-soft:#3A301C;
+    --navy:#8FB0E6; --navy-soft:#1F2A3E;
+    --ok:#6CC49A; --ok-soft:#1B3428; --bad:#E8897E; --bad-soft:#3E2322;
+    --fig:#7FA2DB; --fig2:#D2AE66; --skin:#C9A385; --leg:#5A6480;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151D; --paper:#1A2030; --ink:#E7EAF1; --muted:#9AA3B6; --line:#2C3547;
+  --acc:#D6B06A; --acc-soft:#3A301C;
+  --navy:#8FB0E6; --navy-soft:#1F2A3E;
+  --ok:#6CC49A; --ok-soft:#1B3428; --bad:#E8897E; --bad-soft:#3E2322;
+  --fig:#7FA2DB; --fig2:#D2AE66; --skin:#C9A385; --leg:#5A6480;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.75 var(--sans);padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:760px;margin:0 auto}
+header.top{padding-block:40px 24px;display:grid;gap:10px}
+.eyebrow{font-size:13px;letter-spacing:.12em;color:var(--acc);font-weight:700}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(28px,6vw,40px);line-height:1.25;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip b{color:var(--ink);font-weight:700}
+
+.namebox{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:8px;margin-bottom:8px}
+.namebox label{font-weight:700}
+.namebox input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%;max-width:320px}
+.namebox input:focus-visible,textarea:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
+.field-err{color:var(--bad);font-size:14px}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);padding-block:10px;margin-block:8px 4px;border-bottom:1px solid var(--line)}
+.bar-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.track{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:6px}
+.fill{height:100%;width:0;background:var(--navy);transition:width .3s}
+
+.part{margin-top:36px}
+.part h2{font-family:var(--serif);font-size:22px;margin:0 0 4px}
+.part .hint{color:var(--muted);font-size:14px;margin:0 0 16px}
+
+.q{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;margin-bottom:18px;display:grid;gap:14px;scroll-margin-top:80px}
+.q-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.q-no{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--acc)}
+.q-pts{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.q-text{font-size:18px;font-weight:500;line-height:1.6;margin:0}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--navy)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .let{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--muted);margin-top:1px}
+.opt:has(input:checked){border-color:var(--navy);background:var(--navy-soft)}
+.opt:has(input:checked) .let{background:var(--navy);border-color:var(--navy);color:var(--paper)}
+.opt:has(input:focus-visible){outline:2px solid var(--navy);outline-offset:2px}
+textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%;min-height:110px;resize:vertical}
+
+figure{margin:4px 0 0;display:grid;gap:6px}
+figure svg{width:100%;height:auto;display:block;max-width:100%}
+figcaption{font-size:13px;color:var(--muted)}
+
+.i-bg{fill:var(--navy-soft)} .i-fig{fill:var(--fig)} .i-fig2{fill:var(--fig2)} .i-skin{fill:var(--skin)}
+.i-leg{fill:var(--leg)} .i-paper{fill:var(--paper)} .i-ink{fill:var(--ink)} .i-mut{fill:var(--muted)}
+.i-st{stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round}
+.i-acc{stroke:var(--acc);fill:none;stroke-width:2.5;stroke-linecap:round}
+.i-accf{fill:var(--acc)}
+.i-t{fill:var(--ink);font:500 14px var(--sans)}
+.i-s{fill:var(--muted);font:400 12px var(--sans)}
+.i-q{fill:var(--acc);font:700 18px var(--sans)}
+.mk circle{fill:var(--paper);stroke:var(--acc);stroke-width:2;stroke-dasharray:4 3}
+.mk text{fill:var(--acc);font:700 14px var(--sans)}
+.mk.is-wrong circle{fill:var(--bad-soft);stroke:var(--bad);stroke-dasharray:none}
+.mk.is-wrong text{fill:var(--bad)}
+.mk.is-answer circle{fill:var(--ok);stroke:var(--ok);stroke-dasharray:none}
+.mk.is-answer text{fill:var(--paper)}
+
+.fb{border-radius:10px;padding:12px 14px;font-size:15px;display:grid;gap:6px}
+.fb.ok{background:var(--ok-soft)} .fb.bad{background:var(--bad-soft)} .fb.part{background:var(--acc-soft);margin-top:0}
+.fb .v{font-weight:700}
+.fb.ok .v{color:var(--ok)} .fb.bad .v{color:var(--bad)} .fb.part .v{color:var(--acc)}
+.pts-list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.pts-list li::before{content:"✗ ";color:var(--bad);font-weight:700}
+.pts-list li.hit::before{content:"✓ ";color:var(--ok)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.right .let{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .let{background:var(--bad);border-color:var(--bad);color:var(--paper)}
+.locked .opt{cursor:default}
+.locked .opt:hover{border-color:var(--line)}
+
+.actions{display:grid;gap:12px;margin-top:28px}
+.btn{font:700 16px var(--sans);border:0;border-radius:10px;padding:14px 22px;cursor:pointer;background:var(--navy);color:var(--paper)}
+.btn:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+.warn{background:var(--acc-soft);border-radius:10px;padding:14px 16px;display:grid;gap:10px}
+.warn .row{display:flex;flex-wrap:wrap;gap:10px}
+
+.result{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:24px;display:grid;gap:16px;scroll-margin-top:16px}
+.score{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.score .big{font-family:var(--serif);font-size:64px;line-height:1;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.score .of{color:var(--muted)}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.split div{border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-variant-numeric:tabular-nums}
+.split span{display:block;font-size:13px;color:var(--muted)}
+.split b{font-size:20px}
+.note{font-size:13px;color:var(--muted);margin:0}
+.row-btns{display:flex;flex-wrap:wrap;gap:10px}
+#copyFallback{width:100%;min-height:140px;font-size:13px}
+footer{margin-top:40px;font-size:13px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:480px){.q{padding:18px 16px 14px}.q-text{font-size:17px}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">SERVICE ETIQUETTE · 初階</div>
+    <h1>鴻海服務禮儀初階測驗</h1>
+    <p class="lede">選擇題 8 題、簡答題 3 題。請全部作答後按「交卷」，系統會立即計分並顯示每題解析。</p>
+    <div class="meta">
+      <span class="chip">選擇題 <b>8 × 8</b> 分</span>
+      <span class="chip">簡答題 <b>3 × 12</b> 分</span>
+      <span class="chip">滿分 <b>100</b></span>
+    </div>
+  </header>
+
+  <form id="quiz" novalidate>
+    <div class="namebox">
+      <label for="name">姓名</label>
+      <input id="name" name="name" type="text" autocomplete="name" placeholder="請輸入姓名">
+      <div class="field-err" id="nameErr" hidden>請先填寫姓名再交卷。</div>
+    </div>
+
+    <div class="bar" aria-live="polite">
+      <div class="bar-row"><span id="progText">已作答 0 / 11</span><span id="timer">作答時間 00:00</span></div>
+      <div class="track"><div class="fill" id="progFill"></div></div>
+    </div>
+
+    <div id="resultSlot"></div>
+
+    <section class="part">
+      <h2>第一部分　選擇題</h2>
+      <p class="hint">每題 8 分，共 64 分。每題只有一個正確答案。</p>
+      <div id="mcList"></div>
+    </section>
+
+    <section class="part">
+      <h2>第二部分　簡答題</h2>
+      <p class="hint">每題 12 分，共 36 分。請寫出重點即可。</p>
+      <div id="saList"></div>
+    </section>
+
+    <div class="actions" id="actions">
+      <div class="warn" id="warn" hidden>
+        <div id="warnText"></div>
+        <div class="row">
+          <button type="button" class="btn" id="forceSubmit">仍要交卷</button>
+          <button type="button" class="btn ghost" id="backToQ">回去作答</button>
+        </div>
+      </div>
+      <button type="submit" class="btn" id="submitBtn">交卷並查看成績</button>
+    </div>
+  </form>
+  <footer>測驗內容依〈鴻海服務禮儀初階測驗卷〉編製．圖片為示意插圖</footer>
+</div>
+
+<script>
+(function(){
+const W=520,H=240;
+const frame=(inner,label)=>`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}"><rect width="${W}" height="${H}" rx="14" class="i-bg"/>${inner}</svg>`;
+const t=(x,y,s,cls='i-t',anchor='start')=>`<text x="${x}" y="${y}" class="${cls}" text-anchor="${anchor}">${s}</text>`;
+function personFront(x,y,s=1,tone='fig',o={}){
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <rect x="-13" y="-54" width="11" height="54" rx="4" class="i-leg"/>
+    <rect x="2" y="-54" width="11" height="54" rx="4" class="i-leg"/>
+    ${o.noArmL?'':`<rect x="-33" y="-104" width="10" height="46" rx="5" class="i-${tone}"/>`}
+    ${o.noArmR?'':`<rect x="23" y="-104" width="10" height="46" rx="5" class="i-${tone}"/>`}
+    <path d="M-24 -50 L-22 -106 Q0 -114 22 -106 L24 -50 Z" class="i-${tone}"/>
+    ${o.tie?'<path d="M-3 -108 L3 -108 L5 -80 L0 -72 L-5 -80 Z" class="i-paper"/>':''}
+    <circle cx="0" cy="-128" r="17" class="i-skin"/>
+    <path d="M-17 -132 Q0 -152 17 -132 Q10 -140 0 -140 Q-10 -140 -17 -132Z" class="i-leg"/>
+  </g>`;
+}
+function personTop(x,y,tone='fig',rot=0){
+  return `<g transform="translate(${x} ${y}) rotate(${rot})">
+    <ellipse rx="22" ry="11" class="i-${tone}"/>
+    <path d="M-4 -8 L0 -16 L4 -8Z" class="i-skin"/>
+    <circle r="9.5" class="i-skin"/>
+  </g>`;
+}
+const mk=(x,y,l)=>`<g class="mk" data-opt="${l}"><circle cx="${x}" cy="${y}" r="14"/><text x="${x}" y="${y+5}" text-anchor="middle">${l}</text></g>`;
+function arrow(x1,y1,x2,y2,cls='i-st'){
+  const a=Math.atan2(y2-y1,x2-x1),L=9;
+  const p1=[x2-L*Math.cos(a-0.45),y2-L*Math.sin(a-0.45)],p2=[x2-L*Math.cos(a+0.45),y2-L*Math.sin(a+0.45)];
+  return `<path d="M${x1} ${y1} L${x2} ${y2} M${p1[0].toFixed(1)} ${p1[1].toFixed(1)} L${x2} ${y2} L${p2[0].toFixed(1)} ${p2[1].toFixed(1)}" class="${cls}"/>`;
+}
+const dirArrow=(x)=>arrow(x,200,x,70)+t(x+12,140,'行進','i-s')+t(x+12,156,'方向','i-s');
+
+const IMG={
+q1:frame(
+  personFront(115,215,1.05,'fig',{tie:true})+
+  `<path d="M232 70 Q248 56 264 70 Q248 84 232 70Z" class="i-st"/><circle cx="248" cy="70" r="4.5" class="i-ink"/>`+
+  t(278,75,'外貌儀容・肢體動作')+
+  `<path d="M234 114 h8 l10 -8 v24 l-10 -8 h-8z" class="i-ink"/><path d="M258 112 q5 6 0 12 M263 107 q9 11 0 22" class="i-st"/>`+
+  t(278,125,'聲音表情・語調')+
+  `<rect x="232" y="160" width="34" height="22" rx="5" class="i-st"/><path d="M240 182 l-2 8 l8 -8" class="i-st"/><path d="M239 168 h20 M239 174 h14" class="i-st"/>`+
+  t(278,176,'說話內容・文字')+
+  `<rect x="428" y="36" width="72" height="168" rx="10" class="i-paper"/>`+
+  t(464,60,'比重？','i-s','middle')+t(464,98,'7%','i-q','middle')+t(464,140,'55%','i-q','middle')+t(464,182,'38%','i-q','middle'),
+  '第一印象三要素：外貌肢體、聲音、說話內容，各佔多少比重'),
+q2:frame(
+  `<line x1="40" y1="212" x2="480" y2="212" class="i-st"/>`+
+  personFront(260,208,1.2,'fig')+
+  `<ellipse cx="260" cy="206" rx="46" ry="15" class="i-acc" stroke-dasharray="5 4"/>`+
+  `<path d="M308 200 L360 178" class="i-acc"/>`+t(366,176,'腳跟怎麼放？')+t(366,196,'腳尖幾度？')+
+  t(60,60,'標準站姿','i-t')+t(60,80,'Standing posture','i-s'),
+  '標準站姿示意，雙腳擺放方式待作答'),
+q3:frame(
+  t(28,34,'行走順序')+arrow(52,205,52,62)+
+  personTop(118,78,'fig2')+personTop(118,138,'fig')+personTop(118,198,'fig')+
+  t(150,83,'前方','i-s')+t(150,203,'後方','i-s')+t(168,145,'誰較尊？','i-q')+
+  `<line x1="262" y1="24" x2="262" y2="216" class="i-st" stroke-dasharray="3 5"/>`+
+  t(284,34,'座位安排')+
+  `<rect x="306" y="140" width="190" height="10" rx="3" class="i-leg" opacity=".35"/>`+
+  personTop(338,112,'fig')+personTop(401,112,'fig2')+personTop(464,112,'fig')+
+  t(338,176,'左','i-t','middle')+t(401,176,'中','i-t','middle')+t(464,176,'右','i-t','middle')+
+  t(401,202,'（以就座者面向為準）','i-s','middle')+t(338,78,'?','i-q','middle')+t(464,78,'?','i-q','middle'),
+  '行走的前後順序與座位的左右大小'),
+q4:frame(
+  personTop(260,165,'fig2')+t(290,178,'來賓','i-s')+
+  mk(260,75,'A')+mk(226,199,'B')+mk(294,131,'C')+mk(220,165,'D')+
+  dirArrow(430)+
+  `<line x1="40" y1="215" x2="85" y2="215" class="i-st"/><line x1="40" y1="210" x2="40" y2="220" class="i-st"/><line x1="85" y1="210" x2="85" y2="220" class="i-st"/>`+t(40,204,'1 公尺','i-s')+
+  t(40,40,'俯視圖：引導者應站在哪裡？'),
+  '俯視圖，來賓周圍標示 A 到 D 四個引導位置'),
+q5:frame(
+  personFront(110,208,.9,'fig',{tie:true})+personFront(260,208,.9,'fig2')+personFront(410,208,.9,'fig')+
+  t(110,230,'資深經理','i-s','middle')+t(260,230,'你（介紹人）','i-s','middle')+t(410,230,'新進專員','i-s','middle')+
+  `<rect x="186" y="14" width="148" height="34" rx="17" class="i-paper"/><path d="M252 48 l6 10 l6 -10" class="i-paper"/>`+
+  t(260,36,'我來介紹一下…','i-t','middle')+
+  arrow(222,80,148,80)+arrow(298,80,372,80)+t(185,72,'?','i-q','middle')+t(335,72,'?','i-q','middle'),
+  '介紹人站在資深經理與新進專員之間，先介紹誰'),
+q6:frame(
+  `<line x1="170" y1="18" x2="170" y2="224" class="i-st"/><line x1="350" y1="18" x2="350" y2="224" class="i-st"/>`+
+  t(160,40,'走廊','i-s','end')+
+  personTop(260,165,'fig2')+t(290,178,'客戶','i-s')+
+  mk(222,118,'A')+mk(260,212,'B')+mk(298,118,'C')+mk(260,80,'D')+
+  dirArrow(430),
+  '走廊俯視圖，客戶周圍標示 A 到 D 四個引導位置'),
+q7:frame(
+  `<path d="M0 158 L150 146" stroke="var(--fig)" stroke-width="26" stroke-linecap="round" fill="none"/>`+
+  `<path d="M520 158 L370 146" stroke="var(--fig2)" stroke-width="26" stroke-linecap="round" fill="none"/>`+
+  `<g transform="rotate(-4 260 136)"><rect x="196" y="104" width="128" height="72" rx="6" class="i-paper" stroke="var(--line)"/>`+
+  `<rect x="208" y="116" width="16" height="16" rx="3" class="i-accf"/>`+
+  t(234,146,'王 小 明','i-t')+t(234,164,'業務經理','i-s')+`</g>`+
+  `<ellipse cx="190" cy="142" rx="16" ry="12" class="i-skin"/><ellipse cx="330" cy="142" rx="16" ry="12" class="i-skin"/>`+
+  `<circle cx="440" cy="66" r="28" class="i-paper" stroke="var(--acc)" stroke-width="3"/><rect x="434" y="30" width="12" height="8" rx="2" class="i-accf"/>`+
+  `<path d="M440 66 L440 48 M440 66 L452 72" class="i-acc"/>`+t(440,120,'3 秒','i-q','middle')+
+  t(40,48,'遞出名片後的 3 秒，要做什麼？'),
+  '雙方交換名片，旁邊有 3 秒計時器'),
+q8:frame(
+  `<path d="M215 205 L150 205 L150 25 L370 25 L370 205 L305 205" class="i-st" stroke-width="3"/>`+
+  `<path d="M215 205 L245 205 M275 205 L305 205" stroke="var(--leg)" stroke-width="6"/>`+
+  t(260,228,'電梯門','i-s','middle')+
+  `<rect x="360" y="140" width="8" height="46" rx="2" class="i-accf"/>`+
+  `<circle cx="364" cy="150" r="2" class="i-paper"/><circle cx="364" cy="160" r="2" class="i-paper"/><circle cx="364" cy="170" r="2" class="i-paper"/>`+
+  t(380,168,'操控盤','i-s')+
+  mk(338,168,'A')+mk(240,176,'B')+mk(180,56,'C')+mk(260,56,'D')+
+  t(40,40,'電梯俯視圖','i-t')+t(40,60,'哪個位置最尊貴？','i-s'),
+  '電梯俯視圖，標示 A 到 D 四個站位'),
+s1:frame(
+  `<path d="M110 230 Q110 170 170 165 Q230 170 230 230Z" class="i-fig"/>`+
+  `<circle cx="170" cy="112" r="44" class="i-skin"/><path d="M126 108 Q130 62 176 66 Q206 70 212 96 Q180 84 150 92 Q134 98 126 108Z" class="i-leg"/>`+
+  `<circle cx="196" cy="108" r="4.5" class="i-ink"/><path d="M212 114 l8 10 l-8 2" class="i-skin"/>`+
+  `<path d="M290 230 Q290 170 350 165 Q410 170 410 230Z" class="i-fig2"/>`+
+  `<circle cx="350" cy="112" r="44" class="i-skin"/><path d="M394 108 Q390 62 344 66 Q314 70 308 96 Q340 84 370 92 Q386 98 394 108Z" class="i-leg"/>`+
+  `<circle cx="324" cy="108" r="4.5" class="i-ink"/><path d="M308 114 l-8 10 l8 2" class="i-skin"/>`+
+  `<line x1="204" y1="108" x2="316" y2="108" class="i-acc" stroke-dasharray="3 6"/>`+
+  t(260,40,'四目相交','i-t','middle')+t(260,60,'目的是什麼？效果是什麼？','i-s','middle'),
+  '兩人面對面說話，視線相交'),
+s2:frame(
+  `<line x1="150" y1="210" x2="470" y2="210" class="i-st"/>`+
+  `<path d="M222 150 L222 208 M318 150 L322 208" stroke="var(--leg)" stroke-width="5" stroke-linecap="round"/>`+
+  `<path d="M205 150 L330 150 L338 58" stroke="var(--leg)" stroke-width="7" stroke-linecap="round" fill="none"/>`+
+  `<path d="M290 144 L298 82 Q300 72 310 74 L316 76 Q322 80 318 92 L314 144Z" class="i-fig2"/>`+
+  `<circle cx="306" cy="58" r="15" class="i-skin"/>`+
+  `<rect x="224" y="126" width="88" height="20" rx="9" class="i-fig2"/>`+
+  `<rect x="222" y="132" width="16" height="74" rx="7" class="i-leg"/>`+
+  t(262,112,'?','i-q','middle')+t(200,176,'?','i-q','middle')+
+  t(40,80,'椅面坐多深？')+t(40,104,'上身如何？')+t(40,128,'雙腿怎麼放？'),
+  '女士商務坐姿側面示意'),
+s3:frame(
+  `<line x1="30" y1="212" x2="490" y2="212" class="i-st"/>`+
+  personFront(90,208,.95,'fig2')+t(90,230,'來賓','i-s','middle')+
+  `<line x1="208" y1="112" x2="286" y2="128" stroke="var(--fig)" stroke-width="10" stroke-linecap="round"/>`+
+  personFront(190,208,.95,'fig',{noArmR:true})+t(190,230,'接待人員','i-s','middle')+
+  `<circle cx="294" cy="129" r="9" class="i-skin"/>`+
+  `<circle cx="310" cy="92" r="15" class="i-paper" stroke="var(--acc)" stroke-width="2"/>`+t(310,98,'?','i-q','middle')+
+  `<rect x="428" y="84" width="7" height="128" class="i-leg"/>`+
+  `<rect x="372" y="52" width="118" height="36" rx="6" class="i-fig"/>`+
+  `<text x="431" y="76" text-anchor="middle" style="fill:var(--paper);font:700 14px var(--sans)">會議室 →</text>`,
+  '接待人員為來賓指引方向，手勢待作答')
+};
+
+const MC=[
+ {q:'根據「55-38-7 形象定律」，決定個人第一形象最大的因素（佔比 55%）是下列哪一項？',
+  o:['說話內容與文字','聲音表情與語調','肢體動作與外貌儀容','手勢的靈活使用'],a:'C',img:'q1',
+  cap:'第一印象的三個要素',
+  exp:'55% 來自視覺（外貌儀容、肢體動作），38% 來自聲音表情與語調，說話內容只佔 7%。'},
+ {q:'關於商務禮儀中的標準「站姿」，下列描述何者正確？',
+  o:['雙腳應平行分開與肩同寬','腳跟併攏，腳尖之間自然呈 45 度角','膝蓋應稍微彎曲以保持放鬆','視線應向下看地板以示謙卑'],a:'B',img:'q2',
+  cap:'標準站姿',
+  exp:'標準站姿為腳跟併攏、腳尖自然分開約 45 度（V 字型），膝蓋打直、視線平視前方。'},
+ {q:'在商務禮儀的「八字訣」中，關於行走與座位安排的優先順序為何？',
+  o:['前卑後尊，左大右小','前尊後卑，右大左小','前卑後尊，右大左小','前尊後卑，左大右小'],a:'B',img:'q3',
+  cap:'行走順序與座位安排',
+  exp:'八字訣為「前尊後卑，右大左小」：走在前方者為尊；座位以就座者的右側為大。'},
+ {q:'進行接待引導時，引導者應站在來賓的哪個位置最為合宜？',
+  o:['正前方兩公尺處','左後方一公尺處','右前方一公尺處','並排貼身行走'],a:'C',img:'q4',
+  cap:'接待引導的站位（俯視圖）',
+  exp:'引導者站在來賓右前方約一公尺處，既能帶路，又能隨時回頭照應來賓。'},
+ {q:'在商務禮儀中，若要互相介紹不同地位的商務人士，正確的介紹順序原則為何？',
+  o:['將地位低者介紹給地位高者','將地位高者介紹給地位低者','先介紹與自己關係較近的一方','依據雙方的年齡大小來決定'],a:'A',img:'q5',
+  cap:'介紹的順序',
+  exp:'「尊者有優先知情權」：先將地位低者介紹給地位高者，讓位尊者先認識對方。'},
+ {q:'引導客戶在空間移動時，服務人員應採取的「黃金角度」位置為何？',
+  o:['走在客戶左前方，身體微向後側','走在客戶正後方，保持安全距離','走在客戶右前方，身體微向後側','走在客戶正前方，快速領路'],a:'C',img:'q6',
+  cap:'空間移動時的黃金角度（俯視圖）',
+  exp:'走在客戶右前方、身體微向後側，可以一邊領路一邊照看客戶，也方便說明。'},
+ {q:'進行名片交換時，關於「3 秒黃金期」的互動敘述，下列何者正確？',
+  o:['遞交後為了不尷尬，應立刻與旁人交談','遞交後應迅速將名片收納至公事包','遞交後應立即低頭，避免與對方眼神接觸','遞交後目光應鎖定對方，並報上自己的姓名與職稱'],a:'D',img:'q7',
+  cap:'名片交換的 3 秒黃金期',
+  exp:'遞交名片後的 3 秒內，目光要鎖定對方，同時清楚報上自己的姓名與職稱，讓對方記住你。'},
+ {q:'在「空間禮位」的原則下，當與重要賓客一同進入電梯時，最尊貴的位置通常位於何處？',
+  o:['電梯門按鈕旁邊','電梯門正前方側','電梯內操控盤對角線的最內側','電梯最內側中心'],a:'C',img:'q8',
+  cap:'電梯內的空間禮位（俯視圖）',
+  exp:'最尊貴的位置在操控盤對角線的最內側；按鈕旁通常由陪同或接待人員站立操作。'}
+];
+const SA=[
+ {q:'請簡述質感說話技巧中，關於「四目相交」的目的與效果。',img:'s1',cap:'說話時的四目相交',
+  ref:'建立信任感、展現專注與誠意、凝聚對方注意力。',
+  p:[{l:'建立信任感',k:['信任','信賴','信心'],w:4},
+     {l:'展現專注與誠意',k:['專注','專心','誠意','誠懇','真誠','尊重','重視'],w:4},
+     {l:'凝聚對方注意力',k:['注意力','注意','凝聚','集中','吸引']  ,w:4}]},
+ {q:'女士在進行商務「坐姿」展示時，最核心的儀態要求與雙腿擺放原則是什麼？',img:'s2',cap:'女士的商務坐姿',
+  ref:'坐滿椅子的 2/3、挺胸收腹、雙膝併攏（可微斜放）。',
+  p:[{l:'坐滿椅子的 2/3',k:['2/3','2／3','⅔','三分之二','二分之三'],w:4},
+     {l:'挺胸收腹',k:['挺胸','收腹','收小腹','挺直','背挺','抬頭挺胸','腰桿'],w:4},
+     {l:'雙膝併攏（可微斜放）',k:['併攏','並攏','合攏','靠攏','併膝','並膝','斜放','微斜'],w:4}]},
+ {q:'接待禮儀中提到「用別人喜歡的方式來達到社交的目的」。請問在引導指路時，應使用什麼樣的正確手勢？且嚴禁使用哪兩個部位來指引？',img:'s3',cap:'引導指路的手勢',
+  ref:'應使用「五指併攏、掌心向上」的柔和手勢；嚴禁使用「單指（食指）」或「下巴」來指引。',
+  p:[{l:'五指併攏',k:['五指併攏','五指並攏','手指併攏','手指並攏','五指合攏','併攏','並攏'],w:3},
+     {l:'掌心向上',k:['掌心向上','手心向上','掌心朝上','手心朝上'],w:3},
+     {l:'嚴禁單指（食指）',k:['食指','單指','一根手指','手指頭指'],w:3},
+     {l:'嚴禁下巴',k:['下巴','下顎','下頷'],w:3}]}
+];
+
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mcList=document.getElementById('mcList'),saList=document.getElementById('saList');
+mcList.innerHTML=MC.map((m,i)=>`
+ <article class="q" id="mc${i}" data-kind="mc" data-i="${i}">
+  <div class="q-head"><span class="q-no">第 ${i+1} 題</span><span class="q-pts">8 分</span></div>
+  <p class="q-text">${esc(m.q)}</p>
+  <div class="opts" role="radiogroup" aria-label="第 ${i+1} 題選項">
+   ${m.o.map((o,j)=>{const L='ABCD'[j];return `<label class="opt" data-l="${L}"><input type="radio" name="mc${i}" id="mc${i}${L}" value="${L}"><span class="let">${L}</span><span>${esc(o)}</span></label>`}).join('')}
+  </div>
+  <figure>${IMG[m.img]}<figcaption>圖 ${i+1}　${m.cap}</figcaption></figure>
+  <div class="fb-slot"></div>
+ </article>`).join('');
+saList.innerHTML=SA.map((s,i)=>`
+ <article class="q" id="sa${i}" data-kind="sa" data-i="${i}">
+  <div class="q-head"><span class="q-no">簡答第 ${i+1} 題</span><span class="q-pts">12 分</span></div>
+  <p class="q-text">${esc(s.q)}</p>
+  <textarea id="saText${i}" name="sa${i}" placeholder="請在此作答"></textarea>
+  <figure>${IMG[s.img]}<figcaption>圖 ${9+i}　${s.cap}</figcaption></figure>
+  <div class="fb-slot"></div>
+ </article>`).join('');
+
+const form=document.getElementById('quiz');
+const total=MC.length+SA.length;
+let submitted=false;let t0=Date.now();let tEnd=null;
+const fmt=ms=>{const s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+const timerEl=document.getElementById('timer');
+const tickFn=()=>{timerEl.textContent='作答時間 '+fmt((tEnd||Date.now())-t0)};let tick=setInterval(tickFn,1000);
+
+function unanswered(){
+  const u=[];
+  MC.forEach((m,i)=>{if(!form.querySelector(`input[name="mc${i}"]:checked`))u.push({id:'mc'+i,label:'選擇 '+(i+1)})});
+  SA.forEach((s,i)=>{if(!document.getElementById('saText'+i).value.trim())u.push({id:'sa'+i,label:'簡答 '+(i+1)})});
+  return u;
+}
+function updateProg(){
+  if(submitted)return;
+  const done=total-unanswered().length;
+  document.getElementById('progText').textContent=`已作答 ${done} / ${total}`;
+  document.getElementById('progFill').style.width=(done/total*100)+'%';
+}
+form.addEventListener('input',updateProg);form.addEventListener('change',updateProg);
+
+const warn=document.getElementById('warn');
+form.addEventListener('submit',e=>{
+  e.preventDefault();if(submitted)return;
+  const nm=document.getElementById('name');
+  if(!nm.value.trim()){document.getElementById('nameErr').hidden=false;nm.focus();nm.scrollIntoView({block:'center'});return}
+  document.getElementById('nameErr').hidden=true;
+  const u=unanswered();
+  if(u.length){
+    document.getElementById('warnText').innerHTML=`還有 <b>${u.length}</b> 題未作答：${u.map(x=>x.label).join('、')}。未作答的題目以 0 分計算。`;
+    warn.hidden=false;warn.dataset.first=u[0].id;warn.scrollIntoView({block:'center'});return;
+  }
+  grade();
+});
+document.getElementById('forceSubmit').onclick=()=>grade();
+document.getElementById('backToQ').onclick=()=>{warn.hidden=true;const el=document.getElementById(warn.dataset.first);if(el)el.scrollIntoView({block:'start'})};
+document.getElementById('name').addEventListener('input',()=>{document.getElementById('nameErr').hidden=true});
+
+const norm=s=>s.replace(/\s+/g,'').replace(/並攏/g,'併攏');
+let lastReport='';
+function grade(){
+  submitted=true;tEnd=Date.now();clearInterval(tick);timerEl.textContent='作答時間 '+fmt(tEnd-t0);
+  warn.hidden=true;document.getElementById('submitBtn').hidden=true;
+  form.classList.add('locked');
+  let mcScore=0,saScore=0;const lines=[];
+  MC.forEach((m,i)=>{
+    const card=document.getElementById('mc'+i);
+    const pick=(form.querySelector(`input[name="mc${i}"]:checked`)||{}).value||'';
+    const ok=pick===m.a; if(ok)mcScore+=8;
+    card.querySelectorAll('input').forEach(x=>x.disabled=true);
+    card.querySelectorAll('.opt').forEach(o=>{if(o.dataset.l===m.a)o.classList.add('right');else if(o.dataset.l===pick)o.classList.add('wrong')});
+    card.querySelectorAll('.mk').forEach(k=>{if(k.dataset.opt===m.a)k.classList.add('is-answer');else if(k.dataset.opt===pick)k.classList.add('is-wrong')});
+    card.querySelector('.fb-slot').innerHTML=`<div class="fb ${ok?'ok':'bad'}"><span class="v">${ok?'答對了　+8 分':(pick?`答錯了　你選 (${pick})，正確答案是 (${m.a})`:`未作答　正確答案是 (${m.a})`)}</span><span>${esc(m.exp)}</span></div>`;
+    lines.push(`選擇${i+1}：${pick||'未答'}${ok?' ✓':' ✗（正解 '+m.a+'）'}`);
+  });
+  SA.forEach((s,i)=>{
+    const card=document.getElementById('sa'+i);
+    const ta=document.getElementById('saText'+i);const txt=norm(ta.value);ta.readOnly=true;
+    let sc=0;const hits=s.p.map(p=>{const h=txt&&p.k.some(k=>txt.includes(norm(k)));if(h)sc+=p.w;return h});
+    saScore+=sc;
+    const cls=sc===12?'ok':(sc===0?'bad':'part');
+    card.querySelector('.fb-slot').innerHTML=`<div class="fb ${cls}"><span class="v">得分 ${sc} / 12</span>
+      <ul class="pts-list">${s.p.map((p,j)=>`<li class="${hits[j]?'hit':''}">${esc(p.l)}（${p.w} 分）</li>`).join('')}</ul>
+      <span><b>參考答案：</b>${esc(s.ref)}</span></div>`;
+    lines.push(`簡答${i+1}（${sc}/12）：${ta.value.trim()||'未答'}`);
+  });
+  const name=document.getElementById('name').value.trim();document.getElementById('name').readOnly=true;
+  const totalScore=mcScore+saScore;
+  const when=new Date(tEnd).toLocaleString('zh-TW',{hour12:false});
+  lastReport=`【鴻海服務禮儀初階測驗】\n姓名：${name}\n得分：${totalScore} / 100（選擇題 ${mcScore}/64、簡答題 ${saScore}/36）\n作答時間：${fmt(tEnd-t0)}　交卷時間：${when}\n\n${lines.join('\n')}`;
+  const slot=document.getElementById('resultSlot');
+  slot.innerHTML=`<section class="result" id="result" tabindex="-1">
+    <div class="eyebrow">成績單　${esc(name)}</div>
+    <div class="score"><span class="big">${totalScore}</span><span class="of">/ 100 分</span></div>
+    <div class="split">
+      <div><span>選擇題</span><b>${mcScore}</b> / 64</div>
+      <div><span>簡答題</span><b>${saScore}</b> / 36</div>
+      <div><span>作答時間</span><b>${fmt(tEnd-t0)}</b></div>
+    </div>
+    <p class="note">簡答題依關鍵重點自動評分，僅供參考，實際分數以老師批改為準。往下捲動可看每題解析。</p>
+    <div class="row-btns">
+      <button type="button" class="btn" id="copyBtn">複製成績與作答內容</button>
+      <button type="button" class="btn ghost" id="retryBtn">重新測驗</button>
+    </div>
+    <div id="copyMsg" class="note" hidden></div>
+    <textarea id="copyFallback" readonly hidden></textarea>
+  </section>`;
+  document.getElementById('progText').textContent=`已交卷　得分 ${totalScore} / 100`;
+  document.getElementById('progFill').style.width='100%';
+  document.getElementById('copyBtn').onclick=()=>{
+    const msg=document.getElementById('copyMsg'),fb=document.getElementById('copyFallback');
+    const fallback=()=>{fb.value=lastReport;fb.hidden=false;fb.focus();fb.select();msg.textContent='無法自動複製，請手動複製下方文字（已全選）。';msg.hidden=false};
+    try{navigator.clipboard.writeText(lastReport).then(()=>{msg.textContent='已複製，可以貼到 LINE 或 Email 傳給老師。';msg.hidden=false},fallback)}catch(e){fallback()}
+  };
+  document.getElementById('retryBtn').onclick=reset;
+  const r=document.getElementById('result');r.scrollIntoView({block:'start'});r.focus({preventScroll:true});
+}
+function reset(){
+  submitted=false;
+  form.reset();form.classList.remove('locked');
+  document.getElementById('name').readOnly=false;
+  form.querySelectorAll('input[type=radio]').forEach(x=>x.disabled=false);
+  form.querySelectorAll('textarea').forEach(x=>x.readOnly=false);
+  form.querySelectorAll('.opt').forEach(o=>o.classList.remove('right','wrong'));
+  form.querySelectorAll('.mk').forEach(k=>k.classList.remove('is-answer','is-wrong'));
+  form.querySelectorAll('.fb-slot').forEach(s=>s.innerHTML='');
+  document.getElementById('resultSlot').innerHTML='';
+  document.getElementById('submitBtn').hidden=false;
+  t0=Date.now();tEnd=null;tick=setInterval(tickFn,1000);tickFn();updateProg();
+  window.scrollTo({top:0});
+}
+updateProg();
+})();
+</script>
+
+</body>
+</html>
